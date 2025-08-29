@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Al-Misbah Data Visualization Style Guide</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #f8f6f0;
+            overflow: hidden;
+        }
+
+        .slide-container {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+            display: flex;
+        }
+
+        .slide {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            transform: translateX(100px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            background: linear-gradient(135deg, #f8f6f0 0%, #f2ede3 50%, #ede6d6 100%);
+            overflow: hidden;
+        }
+
+        .slide.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* Background Geometric Shapes */
+        .slide::before {
+            content: '';
+            position: absolute;
+            top: -20%;
+            right: -10%;
+            width: 600px;
+            height: 600px;
+            background: linear-gradient(45deg, rgba(218, 128, 68, 0.1) 0%, rgba(218, 128, 68, 0.05) 100%);
+            border-radius: 50%;
+            z-index: 1;
+        }
+
+        .slide::after {
+            content: '';
+            position: absolute;
+            bottom: -15%;
+            left: -10%;
+            width: 500px;
+            height: 500px;
+            background: linear-gradient(135deg, rgba(218, 128, 68, 0.08) 0%, rgba(218, 128, 68, 0.03) 100%);
+            border-radius: 50%;
+            z-index: 1;
+        }
+
+        .decorative-shapes {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .shape {
+            position: absolute;
+            opacity: 0.1;
+        }
+
+        .shape-1 {
+            top: 10%;
+            left: 80%;
+            width: 80px;
+            height: 80px;
+            background: #da8044;
+            transform: rotate(45deg);
+            border-radius: 15px;
+        }
+
+        .shape-2 {
+            top: 60%;
+            left: 5%;
+            width: 60px;
+            height: 60px;
+            background: #da8044;
+            border-radius: 50%;
+        }
+
+        .shape-3 {
+            top: 20%;
+            left: 15%;
+            width: 100px;
+            height: 2px;
+            background: linear-gradient(90deg, #da8044, transparent);
+        }
+
+        .shape-4 {
+            bottom: 30%;
+            right: 20%;
+            width: 40px;
+            height: 40px;
+            background: #da8044;
+            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+        }
+
+        .content {
+            position: relative;
+            z-index: 10;
+            padding: 40px 60px;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Common Slide Styles */
+        .slide h2 {
+            font-size: 2.8rem;
+            color: #da8044;
+            margin-bottom: 30px;
+            font-weight: bold;
+        }
+
+        /* Slide 1 Styles */
+        .slide1 .header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .slide1 h1 {
+            font-size: 3.5rem;
+            color: #da8044;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .slide1 .subtitle {
+            font-size: 1.3rem;
+            color: #666;
+            margin-bottom: 40px;
+        }
+
+        .slide1 .main-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex: 1;
+        }
+
+        .slide1 .left-content {
+            flex: 1;
+            padding-right: 40px;
+        }
+
+        .slide1 .language-list {
+            list-style: none;
+            margin-bottom: 30px;
+        }
+
+        .slide1 .language-list li {
+            margin-bottom: 8px;
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        .slide1 .language-list li::before {
+            content: '◆';
+            color: #da8044;
+            margin-right: 10px;
+        }
+
+        .slide1 .contact-info {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .slide1 .contact-info .phone {
+            color: #d63384;
+            font-weight: 500;
+        }
+
+        .slide1 .logo-container {
+            flex: 0 0 300px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .slide1 .logo {
+            width: 200px;
+            height: 200px;
+            border: 3px solid #da8044;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: white;
+            box-shadow: 0 10px 30px rgba(218, 128, 68, 0.2);
+        }
+
+        .slide1 .logo-text {
+            font-size: 2rem;
+            color: #da8044;
+            font-weight: bold;
+            transform: rotate(-10deg);
+        }
+
+        /* Slide 2 Styles */
+        .slide2 .purpose-content {
+            max-width: 900px;
+        }
+
+        .slide2 .main-description {
+            font-size: 1.3rem;
+            color: #444;
+            line-height: 1.7;
+            margin-bottom: 40px;
+        }
+
+        .slide2 .guidelines {
+            background: rgba(255, 255, 255, 0.7);
+            padding: 30px;
+            border-radius: 15px;
+            border-left: 5px solid #da8044;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+
+        .slide2 .do-dont {
+            display: flex;
+            gap: 40px;
+        }
+
+        .slide2 .do, .slide2 .dont {
+            flex: 1;
+        }
+
+        .slide2 .do h4 {
+            color: #28a745;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .slide2 .dont h4 {
+            color: #dc3545;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .slide2 .do p, .slide2 .dont p {
+            color: #555;
+            line-height: 1.6;
+            font-size: 1rem;
+        }
+
+        /* Slide 3 - Logo & Clearspace */
+        .slide3 .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 60px;
+            margin-top: 40px;
+        }
+
+        .slide3 .logo-display {
+            flex: 0 0 300px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .slide3 .logo {
+            width: 200px;
+            height: 200px;
+            border: 2px solid #da8044;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: white;
+            box-shadow: 0 8px 25px rgba(218, 128, 68, 0.15);
+        }
+
+        .slide3 .logo-text {
+            font-size: 1.8rem;
+            color: #da8044;
+            font-weight: bold;
+            transform: rotate(-10deg);
+        }
+
+        .slide3 .logo-guidelines {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.6);
+            padding: 30px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+
+        .slide3 .logo-guidelines p {
+            color: #555;
+            line-height: 1.6;
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide-container">
+        <!-- Slide 1: Title -->
+        <div class="slide active" id="slide1">
+            <div class="decorative-shapes">
+                <div class="shape shape-1"></div>
+                <div class="shape shape-2"></div>
+                <div class="shape shape-3"></div>
+                <div class="shape shape-4"></div>
+            </div>
+            <div class="content slide1">
+                <div class="header">
+                    <h1>Al-Misbah — Data Visualization Style Guide</h1>
+                    <p class="subtitle">Teaching Arabic • English • Russian — Visual style for reports, slides & dashboards</p>
+                </div>
+                
+                <div class="main-content">
+                    <div class="left-content">
+                        <ul class="language-list">
+                            <li><strong>Arab tili</strong> (Grammar, CEFR)</li>
+                            <li><strong>Ingliz tili</strong></li>
+                            <li><strong>Rus tili</strong></li>
+                        </ul>
+                        
+                        <div class="contact-info">
+                            <p><span class="phone">📞 +998 88 330 9525 • +998 55 520 9525 • +998 71 220 9525</span></p>
+                            <p>@Almisbah_admin</p>
+                            <p><strong>Toshkent Tumani, Choshtepa</strong> — 2-qavat (near IQBOL shops)</p>
+                        </div>
+                    </div>
+                    
+                    <div class="logo-container">
+                        <div class="logo">
+                            <div class="logo-text">المصباح</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 2: Purpose & Usage -->
+        <div class="slide" id="slide2">
+            <div class="decorative-shapes">
+                <div class="shape shape-1"></div>
+                <div class="shape shape-2"></div>
+                <div class="shape shape-3"></div>
+                <div class="shape shape-4"></div>
+            </div>
+            <div class="content slide2">
+                <h2>Purpose & Usage</h2>
+                
+                <div class="purpose-content">
+                    <p class="main-description">
+                        This guide ensures consistent, accessible, and memorable visualizations for Al-Misbah's teaching materials and dashboards. Use for: workshop slides, monthly reports, social media infographics, and Qlik dashboards.
+                    </p>
+                    
+                    <div class="guidelines">
+                        <div class="do-dont">
+                            <div class="do">
+                                <h4>✅ Do:</h4>
+                                <p>Use brand orange for emphasis, direct labels on charts, clear legible fonts.</p>
+                            </div>
+                            <div class="dont">
+                                <h4>❌ Don't:</h4>
+                                <p>Use rainbow palettes, 3D charts, or small text under 10 px.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3: Logo & Clearspace -->
+        <div class="slide" id="slide3">
+            <div class="decorative-shapes">
+                <div class="shape shape-1"></div>
+                <div class="shape shape-2"></div>
+                <div class="shape shape-3"></div>
+                <div class="shape shape-4"></div>
+            </div>
+            <div class="content slide3">
+                <h2>Logo & <u style="text-decoration: underline;">Clearspace</u></h2>
+                
+                <div class="logo-section">
+                    <div class="logo-display">
+                        <div class="logo">
+                            <div class="logo-text">المصباح</div>
+                        </div>
+                    </div>
+                    
+                    <div class="logo-guidelines">
+                        <p><strong>Minimum clearspace = height of the logo on all sides.</strong></p>
+                        <p>Do not rotate, recolor outside brand palette, or distort. Use the monochrome variant only on single-color backgrounds.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: Color Palette -->
+        <div class="slide" id="slide4">
+            <div class="decorative-shapes">
+                <div class="shape shape-1"></div>
+                <div class="shape shape-2"></div>
+                <div class="shape shape-3"></div>
+                <div class="shape shape-4"></div>
+            </div>
+            <div class="content slide4">
+                <h2>Color Palette</h2>
+                
+                <div class="color-grid">
+                    <div class="color-item">
+                        <div class="color-swatch" style="background-color: #C76A2B;"></div>
+                        <div class="color-code">#C76A2B</div>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-swatch" style="background-color: #A14F1F;"></div>
+                        <div class="color-code">#A14F1F</div>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-swatch" style="background-color: #F7EAE0;"></div>
+                        <div class="color-code">#F7EAE0</div>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-swatch" style="background-color: #2A909F;"></div>
+                        <div class="color-code">#2A909F</div>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-swatch" style="background-color: #2D7545;"></div>
+                        <div class="color-code">#2D7545</div>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-swatch" style="background-color: #F2E100;"></div>
+                        <div class="color-code">#F2E100</div>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-swatch" style="background-color: #E24A3B;"></div>
+                        <div class="color-code">#E24A3B</div>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-swatch" style="background-color: #88C1EE;"></div>
+                        <div class="color-code">#88C1EE</div>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-swatch" style="background-color: #CC6677;"></div>
+                        <div class="color-code">#CC6677</div>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-swatch" style="background-color: #DDCC77;"></div>
+                        <div class="color-code">#DDCC77</div>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-swatch" style="background-color: #117733;"></div>
+                        <div class="color-code">#117733</div>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-swatch" style="background-color: #332288;"></div>
+                        <div class="color-code">#332288</div>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-swatch" style="background-color: #AA4499;"></div>
+                        <div class="color-code">#AA4499</div>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-swatch" style="background-color: #44AA99;"></div>
+                        <div class="color-code">#44AA99</div>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-swatch" style="background-color: #999933;"></div>
+                        <div class="color-code">#999933</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: Typography & Text Rules -->
+        <div class="slide" id="slide5">
+            <div class="decorative-shapes">
+                <div class="shape shape-1"></div>
+                <div class="shape shape-2"></div>
+                <div class="shape shape-3"></div>
+                <div class="shape shape-4"></div>
+            </div>
+            <div class="content slide5">
+                <h2>Typography & Text Rules</h2>
+                
+                <div class="typography-content">
+                    <div class="font-section">
+                        <h3>Font Selection</h3>
+                        <p><strong>Arabic font:</strong> Noto Naskh Arabic / Noto Sans Arabic</p>
+                        <p><strong>Latin/Russian:</strong> Poppins or Inter</p>
+                    </div>
+                    
+                    <div class="font-section">
+                        <h3>Sizes (slides/dashboards)</h3>
+                        <p><strong>Title:</strong> 30-36 px | <strong>Subtitle:</strong> 18-22 px | <strong>Body:</strong> 12-14 px | <strong>Axis:</strong> 10-12 px</p>
+                    </div>
+                    
+                    <div class="font-section">
+                        <h3>RTL Notes</h3>
+                        <p>Mirror layouts; ensure Arabic labels are right-aligned and have at least 1.2 line-height.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: Chart Rules & Examples -->
+        <div class="slide" id="slide6">
+            <div class="decorative-shapes">
+                <div class="shape shape-1"></div>
+                <div class="shape shape-2"></div>
+                <div class="shape shape-3"></div>
+                <div class="shape shape-4"></div>
+            </div>
+            <div class="content slide6">
+                <h2>Chart Rules & Examples</h2>
+                
+                <div class="charts-container">
+                    <div class="chart-example">
+                        <div class="chart-placeholder">Enrollment by Language (2022-2024)</div>
+                        <div class="chart-title">Bar Chart Example</div>
+                    </div>
+                    
+                    <div class="chart-example">
+                        <div class="chart-placeholder">Monthly Attendance</div>
+                        <div class="chart-title">Line Chart Example</div>
+                    </div>
+                    
+                    <div class="chart-example">
+                        <div class="chart-placeholder">Student Age Distribution</div>
+                        <div class="chart-title">Histogram Example</div>
+                    </div>
+                </div>
+                
+                <div class="chart-guidelines">
+                    <p><strong>Guidance:</strong> Use direct labels when possible; brand orange for emphasis; avoid >7 categories; prefer single-focus charts.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 7: Layout, Exports & Accessibility -->
+        <div class="slide" id="slide7">
+            <div class="decorative-shapes">
+                <div class="shape shape-1"></div>
+                <div class="shape shape-2"></div>
+                <div class="shape shape-3"></div>
+                <div class="shape shape-4"></div>
+            </div>
+            <div class="content slide7">
+                <h2>Layout, Exports & Accessibility</h2>
+                
+                <div class="specs-grid">
+                    <div class="spec-card">
+                        <h3>📐 Slide Specifications</h3>
+                        <p><strong>Slide size:</strong> 16:9 (1920×1080)</p>
+                        <p><strong>Qlik sheet thumbnails:</strong> 1536×1024</p>
+                    </div>
+                    
+                    <div class="spec-card">
+                        <h3>♿ Accessibility</h3>
+                        <p>Ensure text contrast (AA), font sizes >= 12 pt for slide body, provide alt text for exported images, and check colorblind readability.</p>
+                    </div>
+                    
+                    <div class="spec-card">
+                        <h3>📤 Export Formats</h3>
+                        <p><strong>PDF</strong> for print; <strong>PPTX</strong> for editing; <strong>PNG/SVG</strong> for web assets.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 8: Assets & Next Steps -->
+        <div class="slide" id="slide8">
+            <div class="decorative-shapes">
+                <div class="shape shape-1"></div>
+                <div class="shape shape-2"></div>
+                <div class="shape shape-3"></div>
+                <div class="shape shape-4"></div>
+            </div>
+            <div class="content slide8">
+                <h2>Assets & Next Steps</h2>
+                
+                <div class="assets-grid">
+                    <div class="assets-section">
+                        <h3>📦 Included in Package</h3>
+                        <ul>
+                            <li>PPTX style guide (this file)</li>
+                            <li>Palette JSON and color swatches</li>
+                            <li>3 sample charts (placeholder data)</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="assets-section">
+                        <h3>🚀 Next Steps</h3>
+                        <ul>
+                            <li>Upload this PPTX to Google Drive and open with Google Slides to set web fonts (Poppins / Noto Arabic)</li>
+                            <li>Replace charts with your real CSVs; update titles and labels</li>
+                            <li>Ask me to create a Google Slides copy directly (requires Drive access) or to localize text to Uzbek/Russian/Arabic</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 9: Color Reference Guide -->
+        <div class="slide" id="slide9">
+            <div class="decorative-shapes">
+                <div class="shape shape-1"></div>
+                <div class="shape shape-2"></div>
+                <div class="shape shape-3"></div>
+                <div class="shape shape-4"></div>
+            </div>
+            <div class="content slide9">
+                <h2>🎨 Complete Color Reference</h2>
+                
+                <div class="color-reference-grid">
+                    <div class="color-category">
+                        <div class="category-title">Brand Colors</div>
+                        <div class="color-list">
+                            <div class="color-entry">
+                                <div class="color-dot" style="background-color: #C76A2B;"></div>
+                                <div class="color-info">#C76A2B - Primary Orange</div>
+                            </div>
+                            <div class="color-entry">
+                                <div class="color-dot" style="background-color: #A14F1F;"></div>
+                                <div class="color-info">#A14F1F - Dark Orange</div>
+                            </div>
+                            <div class="color-entry">
+                                <div class="color-dot" style="background-color: #F7EAE0;"></div>
+                                <div class="color-info">#F7EAE0 - Light Cream</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="color-category">
+                        <div class="category-title">Accent Colors</div>
+                        <div class="color-list">
+                            <div class="color-entry">
+                                <div class="color-dot" style="background-color: #2A909F;"></div>
+                                <div class="color-info">#2A909F - Teal</div>
+                            </div>
+                            <div class="color-entry">
+                                <div class="color-dot" style="background-color: #2D7545;"></div>
+                                <div class="color-info">#2D7545 - Forest Green</div>
+                            </div>
+                            <div class="color-entry">
+                                <div class="color-dot" style="background-color: #F2E100;"></div>
+                                <div class="color-info">#F2E100 - Bright Yellow</div>
+                            </div>
+                            <div class="color-entry">
+                                <div class="color-dot" style="background-color: #E24A3B;"></div>
+                                <div class="color-info">#E24A3B - Coral Red</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="color-category">
+                        <div class="category-title">Chart Palette</div>
+                        <div class="color-list">
+                            <div class="color-entry">
+                                <div class="color-dot" style="background-color: #88C1EE;"></div>
+                                <div class="color-info">#88C1EE - Sky Blue</div>
+                            </div>
+                            <div class="color-entry">
+                                <div class="color-dot" style="background-color: #CC6677;"></div>
+                                <div class="color-info">#CC6677 - Rose Pink</div>
+                            </div>
+                            <div class="color-entry">
+                                <div class="color-dot" style="background-color: #DDCC77;"></div>
+                                <div class="color-info">#DDCC77 - Sand Yellow</div>
+                            </div>
+                            <div class="color-entry">
+                                <div class="color-dot" style="background-color: #117733;"></div>
+                                <div class="color-info">#117733 - Deep Green</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="color-category">
+                        <div class="category-title">Extended Palette</div>
+                        <div class="color-list">
+                            <div class="color-entry">
+                                <div class="color-dot" style="background-color: #332288;"></div>
+                                <div class="color-info">#332288 - Deep Purple</div>
+                            </div>
+                            <div class="color-entry">
+                                <div class="color-dot" style="background-color: #AA4499;"></div>
+                                <div class="color-info">#AA4499 - Magenta</div>
+                            </div>
+                            <div class="color-entry">
+                                <div class="color-dot" style="background-color: #44AA99;"></div>
+                                <div class="color-info">#44AA99 - Mint Green</div>
+                            </div>
+                            <div class="color-entry">
+                                <div class="color-dot" style="background-color: #999933;"></div>
+                                <div class="color-info">#999933 - Olive Green</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <div class="navigation">
+        <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)">← Previous</button>
+        <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)">Next →</button>
+    </div>
+
+    <!-- Slide Indicators -->
+    <div class="slide-indicator">
+        <div class="indicator active" onclick="goToSlide(0)"></div>
+        <div class="indicator" onclick="goToSlide(1)"></div>
+        <div class="indicator" onclick="goToSlide(2)"></div>
+        <div class="indicator" onclick="goToSlide(3)"></div>
+        <div class="indicator" onclick="goToSlide(4)"></div>
+        <div class="indicator" onclick="goToSlide(5)"></div>
+        <div class="indicator" onclick="goToSlide(6)"></div>
+        <div class="indicator" onclick="goToSlide(7)"></div>
+        <div class="indicator" onclick="goToSlide(8)"></div>
+    </div>
+
+    <!-- Slide Counter -->
+    <div class="slide-counter">
+        <span id="currentSlideNum">1</span> / <span id="totalSlides">9</span>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const indicators = document.querySelectorAll('.indicator');
+        const totalSlides = slides.length;
+
+        // Update total slides display
+        document.getElementById('totalSlides').textContent = totalSlides;
+
+        function showSlide(n) {
+            slides[currentSlide].classList.remove('active');
+            indicators[currentSlide].classList.remove('active');
+            
+            currentSlide = n;
+            
+            if (currentSlide >= totalSlides) currentSlide = 0;
+            if (currentSlide < 0) currentSlide = totalSlides - 1;
+            
+            slides[currentSlide].classList.add('active');
+            indicators[currentSlide].classList.add('active');
+            
+            // Update navigation buttons
+            document.getElementById('prevBtn').disabled = currentSlide === 0;
+            document.getElementById('nextBtn').disabled = currentSlide === totalSlides - 1;
+            
+            // Update slide counter
+            document.getElementById('currentSlideNum').textContent = currentSlide + 1;
+        }
+
+        function changeSlide(n) {
+            showSlide(currentSlide + n);
+        }
+
+        function goToSlide(n) {
+            showSlide(n);
+        }
+
+        // Initialize
+        showSlide(0);
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                e.preventDefault();
+                if (currentSlide < totalSlides - 1) changeSlide(1);
+            } else if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                if (currentSlide > 0) changeSlide(-1);
+            } else if (e.key === 'Home') {
+                e.preventDefault();
+                goToSlide(0);
+            } else if (e.key === 'End') {
+                e.preventDefault();
+                goToSlide(totalSlides - 1);
+            }
+        });
+
+        // Touch/swipe support for mobile
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        document.addEventListener('touchstart', function(e) {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+
+        document.addEventListener('touchend', function(e) {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        });
+
+        function handleSwipe() {
+            const swipeThreshold = 50;
+            const swipeDistance = touchEndX - touchStartX;
+            
+            if (Math.abs(swipeDistance) > swipeThreshold) {
+                if (swipeDistance > 0 && currentSlide > 0) {
+                    changeSlide(-1); // Swipe right = previous slide
+                } else if (swipeDistance < 0 && currentSlide < totalSlides - 1) {
+                    changeSlide(1); // Swipe left = next slide
+                }
+            }
+        }
+
+        // Auto-advance slides (optional - can be enabled)
+        // let autoAdvanceInterval;
+        // function startAutoAdvance() {
+        //     autoAdvanceInterval = setInterval(() => {
+        //         if (currentSlide < totalSlides - 1) {
+        //             changeSlide(1);
+        //         } else {
+        //             goToSlide(0); // Loop back to start
+        //         }
+        //     }, 8000);
+        // }
+        // 
+        // function stopAutoAdvance() {
+        //     clearInterval(autoAdvanceInterval);
+        // }
+        // 
+        // // Start auto-advance
+        // startAutoAdvance();
+        // 
+        // // Pause auto-advance on user interaction
+        // document.addEventListener('click', stopAutoAdvance);
+        // document.addEventListener('keydown', stopAutoAdvance);
+    </script>
+</body>
+</html>
